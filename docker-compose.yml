@@ -1,4 +1,4 @@
-version: "3.9"
+version: ""
 
 services:
   aichatbot:
@@ -9,7 +9,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      GEMINI_API_KEY: ${langchain4j.google-ai-gemini.chat-model.api-key}
       GEMINI_MODEL: gemini-1.5-pro
     restart: unless-stopped
 

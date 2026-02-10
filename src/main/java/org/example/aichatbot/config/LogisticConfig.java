@@ -64,7 +64,6 @@ public class LogisticConfig {
 
 
     private ContentRetriever createCreseadaKnowledgeBase() {
-        // Use a standard local embedding model (no API key needed)
         EmbeddingModel embeddingModel = new AllMiniLmL6V2EmbeddingModel();
         InMemoryEmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
 
@@ -73,7 +72,7 @@ public class LogisticConfig {
                 .embeddingStore(embeddingStore)
                 .build();
 
-        // Feed the company profile into the vector database
+
         ingestor.ingest(Document.from(getCreseadaText()));
         ingestor.ingest(Document.from(updatedLogisticsText));
 
