@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  aichatbot:
+    container_name: creseada-logistics-ai
+    build:
+      context: src/test/java
+      dockerfile: src/main/resources/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      GEMINI_MODEL: gemini-1.5-pro
+    restart: unless-stopped
+
