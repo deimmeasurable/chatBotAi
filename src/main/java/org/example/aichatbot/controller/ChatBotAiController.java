@@ -24,10 +24,10 @@ public class ChatBotAiController {
 
     @PostMapping("")
     @Operation(summary = "Chat with the logistics AI")
-    public ResponseEntity<ChatResponseDto> chat(@RequestBody ChatRequestDto request) {
+    public ResponseEntity<String> chat(@RequestBody ChatRequestDto request) {
         String reply = logisticDispatcher.handleInquiry(request.getMessage());
-        ChatResponseDto response = new ChatResponseDto(reply);
-        return ResponseEntity.ok(response);
+//        ChatResponseDto response = new ChatResponseDto(reply);
+        return ResponseEntity.ok(reply);
     }
     @GetMapping("/")
     public ResponseEntity<String> home() {
