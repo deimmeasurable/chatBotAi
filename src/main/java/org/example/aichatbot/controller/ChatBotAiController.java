@@ -29,4 +29,8 @@ public class ChatBotAiController {
         ChatResponseDto response = new ChatResponseDto(reply);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/")
+    public ResponseEntity<String> home() {
+        return ResponseEntity.ok("Creseada Logistics AI is running");
+    }
 }
