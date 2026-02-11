@@ -4,7 +4,7 @@ import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.spring.AiService;
 
 
-//@AiService
+@AiService
 public interface LogisticAssistant {
 
     @SystemMessage(
