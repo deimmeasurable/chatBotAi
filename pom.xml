@@ -47,6 +47,11 @@
             <artifactId>langchain4j-spring-boot-starter</artifactId>
             <version>1.0.0-beta1</version>
         </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.16.1</version>
+        </dependency>
 
         <!-- LangChain4j Embeddings (AllMiniLmL6V2) -->
         <dependency>

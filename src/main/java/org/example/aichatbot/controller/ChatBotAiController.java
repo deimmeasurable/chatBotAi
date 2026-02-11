@@ -1,7 +1,12 @@
 package org.example.aichatbot.controller;
+import dev.langchain4j.model.chat.request.ChatRequest;
+import dev.langchain4j.model.chat.response.ChatResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.aichatbot.domain.ChatRequestDto;
+import org.example.aichatbot.domain.ChatResponseDto;
 import org.example.aichatbot.service.LogisticDispatcher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -19,7 +24,9 @@ public class ChatBotAiController {
 
     @PostMapping("")
     @Operation(summary = "Chat with the logistics AI")
-    public String chat(@RequestBody String message) {
-        return logisticDispatcher.handleInquiry(message);
+    public ResponseEntity<ChatResponseDto> chat(@RequestBody ChatRequestDto request) {
+        String reply = logisticDispatcher.handleInquiry(request.getMessage());
+        ChatResponseDto response = new ChatResponseDto(reply);
+        return ResponseEntity.ok(response);
     }
 }

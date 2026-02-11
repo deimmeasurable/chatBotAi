@@ -7,6 +7,7 @@ import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,18 +18,29 @@ public class KnowledgeBaseUpdater {
 
     private final InMemoryEmbeddingStore<TextSegment> embeddingStore;
     private final EmbeddingModel embeddingModel;
-    private final LiveCustomsFetcher customsFetcher;
+    private final LiveCustomsFetcher liveCustomsFetcher;
 
+    /**
+     * Ingest live updates safely without blocking application startup.
+     */
+    @Async
     public void ingestLiveCustomsUpdates() {
-        List<String> updates = customsFetcher.fetchLatestUpdates();
-        if (!updates.isEmpty()) {
-            EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
-                    .embeddingModel(embeddingModel)
-                    .embeddingStore(embeddingStore)
-                    .build();
-            updates.forEach(text -> ingestor.ingest(Document.from(text)));
-            log.info("Ingested " + updates.size() + " live updates from customs API.");
+        List<String> updates = liveCustomsFetcher.fetchLatestUpdates();
+        if (updates.isEmpty()) {
+            log.info("No live customs updates to ingest.");
+            return;
         }
+
+        EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
+                .embeddingModel(embeddingModel)
+                .embeddingStore(embeddingStore)
+                .build();
+
+        updates.forEach(text -> ingestor.ingest(Document.from(text)));
+        log.info("Ingested {} live updates from customs API.", updates.size());
     }
 }
+
+
+
 
