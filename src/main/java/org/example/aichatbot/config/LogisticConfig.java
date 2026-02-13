@@ -13,13 +13,12 @@ import org.example.aichatbot.service.LogisticAssistant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
 @RequiredArgsConstructor
 public class LogisticConfig {
 
-    @Value("${langchain4j.google-ai-gemini.chat-model.api-key}")
+    @Value("${GEMINI_API_KEY}")
     private String geminiApiKey;
 
     @Value("${langchain4j.google-ai-gemini.chat-model.model-name}")
