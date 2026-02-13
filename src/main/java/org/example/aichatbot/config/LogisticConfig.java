@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class LogisticConfig {
 
-    @Value("${GEMINI_API_KEY}")
+    @Value("${GEMINI_API_KEY:}")
     private String geminiApiKey;
 
     @Value("${langchain4j.google-ai-gemini.chat-model.model-name}")
